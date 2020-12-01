@@ -27,7 +27,7 @@ const GLchar* fragmentShaderSource = "#version 330 core\n"
     "out vec4 color;\n"
     "void main()\n"
     "{\n"
-    "color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "color = vec4(1.0f, 1.0f, 1.0f, 1.0f);\n"
     "}\n\0";
 
 // The MAIN function, from here we start the application and run the game loop
@@ -42,7 +42,7 @@ int main()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     // Create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "SPIDER MAN", nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     // Set the required callback functions
@@ -101,9 +101,16 @@ int main()
 
     // Set up vertex data (and buffer(s)) and attribute pointers
     GLfloat vertices[] = {
-        -0.5f, -0.5f, 0.0f, // Left  
-         0.5f, -0.5f, 0.0f, // Right 
-         0.0f,  0.5f, 0.0f  // Top   
+	    // First triangle
+        -0.4f, -0.45f, 0.0f,  // Left 
+        -0.05f, -0.0f, 0.0f,  // Right
+        -0.8f, 0.5f, 0.0f,  // Top 
+        // Second triangle
+         0.05f, -0.0f, 0.0f,  // Left
+         0.4f, -0.45f, 0.0f,  // Right
+         0.8f, 0.5f, 0.0f,   // Top 
+		//third triangle
+
     };
     GLuint VBO, VAO;
     glGenVertexArrays(1, &VAO);
@@ -129,15 +136,14 @@ int main()
 
         // Render
         // Clear the colorbuffer
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Draw our first triangle
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
-
         // Swap the screen buffers
         glfwSwapBuffers(window);
     }
