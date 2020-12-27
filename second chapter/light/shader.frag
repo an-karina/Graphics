@@ -13,8 +13,8 @@ uniform vec3		l_ambient;
 uniform vec3		l_diffuse;
 uniform vec3		l_specular;
 
-uniform vec3		objectColor;
-uniform vec3		lightColor;
+//uniform vec3		objectColor;
+//uniform vec3		lightColor;
 uniform vec3		lightPos;
 
 uniform vec3		viewPos;
