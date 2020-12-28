@@ -8,8 +8,6 @@ int		main(void)
 	GLuint		lightVAO;
 	GLuint		skybox_VAO;
 	GLuint		skybox_VBO;
-	GLuint		reflected_cubeVAO;
-	GLuint		reflected_cubeVBO;
 	GLuint		planeVBO;
 	GLuint		depthMapFBO;
 	GLuint		depthMap;
@@ -146,6 +144,7 @@ int		main(void)
 		glBindTexture(GL_TEXTURE_2D, depthMap);
 		render(depth);
 		renderPlane(depth);
+		renderReflectedCube(depth);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		glViewport(0, 0, WIDTH, HEIGHT);
@@ -174,21 +173,17 @@ int		main(void)
 
 
 		reflection.Use();
-        glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(1.0f, 4.0f,1.0f));
+        // glm::mat4 model = glm::mat4(1.0f);
+		// model = glm::translate(model, glm::vec3(1.0f, 4.0f,1.0f));
         view = camera.GetViewMatrix();
 		projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-        glUniformMatrix4fv(glGetUniformLocation(reflection.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        //glUniformMatrix4fv(glGetUniformLocation(reflection.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         glUniformMatrix4fv(glGetUniformLocation(reflection.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(reflection.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniform3f(glGetUniformLocation(reflection.Program,"camera_position"), camera.Position.x, camera.Position.y, camera.Position.z);
-		glBindVertexArray(0);
-        // cubes
-        glBindVertexArray(reflected_cubeVAO);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glBindVertexArray(0);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+		renderReflectedCube(reflection);
 
 		glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
         sky_box.Use();
@@ -410,4 +405,15 @@ void	renderPlane(Shader &shader)
     glUniformMatrix4fv(glGetUniformLocation(shader.Program,  "model"), 1, GL_FALSE, glm::value_ptr(model));
     glBindVertexArray(planeVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+void	renderReflectedCube(Shader &shader)
+{
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(1.0f, 4.0f,1.0f));
+	glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glBindVertexArray(0);
+    glBindVertexArray(reflected_cubeVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindVertexArray(0);
 }

@@ -23,6 +23,7 @@
 	void				renderCube();
 	GLuint				loadTexture(char const * path);
 	void				renderPlane(Shader &shader);
+	void				renderReflectedCube(Shader &shader);
 
 	const unsigned int	SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
 	const GLuint		WIDTH = 900, HEIGHT = 800;//Camera
@@ -33,6 +34,8 @@
 	GLfloat				deltaTime = 0.0f;	// Time between current frame and last frame
 	GLfloat				lastFrame = 0.0f;  	// Time of last frame
 	unsigned int		planeVAO;
+	unsigned int		reflected_cubeVAO;
+	unsigned int		reflected_cubeVBO;
 
 glm::vec3 cubePositions[] = {
     glm::vec3( 1.0f,  0.0f,  0.0f),
