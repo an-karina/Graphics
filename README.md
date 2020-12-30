@@ -9,4 +9,5 @@ University project
 
 Compilation
 g++ -lSOIL -lGLEW -lglfw -lGL -lX11 -lpthread -lXrandr -lXi help.cpp
+You can see the result photo in opengl_project.png
 
