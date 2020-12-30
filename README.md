@@ -5,7 +5,7 @@ University project
 3) Mirror
 4) Shadows
 6) Normal mapping
-7)parallax
+7) Parallax
 
 Compilation
 g++ -lSOIL -lGLEW -lglfw -lGL -lX11 -lpthread -lXrandr -lXi help.cpp
