@@ -1,9 +1,12 @@
 # Graphics
 University project
-1) попиксельный расчет освещенности
-2) кубические текстуры
-3) зеркальные грани
-4) отбрасывание тени на плоскость
-5) отбрасывание тени на другие объекты
-6) имитация рельефных поверхностей
+1) Phong
+2) Textures
+3) Mirror
+4) Shadows
+6) Normal mapping
 7)parallax
+
+Compilation
+g++ -lSOIL -lGLEW -lglfw -lGL -lX11 -lpthread -lXrandr -lXi help.cpp
+
